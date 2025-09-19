@@ -1,0 +1,2341 @@
+{
+  "audit_timestamp": "2025-09-03T07:13:07.531418",
+  "project_root": ".",
+  "cybersecurity": {
+    "sast_results": [
+      {
+        "file": "backend/test_email_endpoint.py",
+        "line": 20,
+        "type": "SAST",
+        "severity": "HIGH",
+        "description": "Hardcoded password detected",
+        "code": "temporary_password=\"TempPass123!\""
+      }
+    ],
+    "dependency_vulnerabilities": [
+      {
+        "package": "requests",
+        "version": "2.32.3",
+        "type": "DEPENDENCY",
+        "severity": "HIGH",
+        "description": "Potentially vulnerable version of requests",
+        "file": "backend/requirements.txt"
+      }
+    ],
+    "secret_exposure": [
+      {
+        "file": "create_test_user.py",
+        "line": 13,
+        "type": "SECRET_EXPOSURE",
+        "severity": "CRITICAL",
+        "secret_type": "Database URL",
+        "description": "Potential Database URL exposure",
+        "code": "DATABASE_URL = \"postgresql://postgres:secure_db_password@localhost:2001/aci_dashboard\""
+      },
+      {
+        "file": "backend/test_email_endpoint.py",
+        "line": 20,
+        "type": "SECRET_EXPOSURE",
+        "severity": "CRITICAL",
+        "secret_type": "Password",
+        "description": "Potential Password exposure",
+        "code": "temporary_password=\"TempPass123!\""
+      },
+      {
+        "file": "backend/scripts/simple_server.py",
+        "line": 38,
+        "type": "SECRET_EXPOSURE",
+        "severity": "CRITICAL",
+        "secret_type": "Secret Key",
+        "description": "Potential Secret Key exposure",
+        "code": "JWT_SECRET_KEY = \"aSK1LtZz7jqianX3Xz1AEcSjHQRbnY30tNlDptwu6T2DOxDuKyzcjOriZYWNNCoM\""
+      }
+    ],
+    "owasp_compliance": {
+      "A01_2021_Broken_Access_Control": {
+        "compliant": false,
+        "issues": [
+          "Potential unprotected endpoint: async def get_all_users( in backend/app/routers/users.py",
+          "Potential unprotected endpoint: async def get_user( in backend/app/routers/users.py",
+          "Potential unprotected endpoint: async def delete_user( in backend/app/routers/users.py",
+          "Potential unprotected endpoint: async def get_roles( in backend/app/routers/users.py",
+          "Potential unprotected endpoint: async def get_tools( in backend/app/routers/users.py",
+          "Potential unprotected endpoint: async def get_current_user_profile( in backend/app/api/routers/users.py",
+          "Potential unprotected endpoint: async def get_current_user_roles( in backend/app/api/routers/users.py",
+          "Potential unprotected endpoint: async def get_current_user_tools( in backend/app/api/routers/users.py",
+          "Potential unprotected endpoint: async def get_user_tools( in backend/app/api/routers/tools.py",
+          "Potential unprotected endpoint: async def get_tool( in backend/app/api/routers/tools.py",
+          "Potential unprotected endpoint: async def get_all_users( in backend/app/api/routers/admin.py",
+          "Potential unprotected endpoint: async def get_user( in backend/app/api/routers/admin.py",
+          "Potential unprotected endpoint: async def delete_user( in backend/app/api/routers/admin.py",
+          "Potential unprotected endpoint: async def get_all_roles( in backend/app/api/routers/admin.py",
+          "Potential unprotected endpoint: async def delete_role( in backend/app/api/routers/admin.py",
+          "Potential unprotected endpoint: async def get_all_tools( in backend/app/api/routers/admin.py",
+          "Potential unprotected endpoint: async def delete_tool( in backend/app/api/routers/admin.py"
+        ],
+        "description": "Access control verification"
+      },
+      "A02_2021_Cryptographic_Failures": {
+        "compliant": true,
+        "issues": [],
+        "description": "Cryptographic implementation check"
+      },
+      "A03_2021_Injection": {
+        "compliant": true,
+        "issues": [],
+        "description": "Injection vulnerability check"
+      },
+      "A04_2021_Insecure_Design": {
+        "compliant": true,
+        "issues": [],
+        "description": "Secure design pattern check"
+      },
+      "A05_2021_Security_Misconfiguration": {
+        "compliant": true,
+        "issues": [],
+        "description": "Security configuration check"
+      },
+      "A06_2021_Vulnerable_Components": {
+        "compliant": false,
+        "issues": [
+          "Vulnerable dependency: requests"
+        ],
+        "description": "Component vulnerability check"
+      },
+      "A07_2021_Authentication_Failures": {
+        "compliant": false,
+        "issues": [
+          "Weak password policy in .venv/Lib/site-packages/requests/auth.py",
+          "Weak password policy in .venv/Lib/site-packages/starlette/authentication.py",
+          "Weak password policy in .venv/Lib/site-packages/fastapi/security/oauth2.py",
+          "Weak password policy in .venv/Lib/site-packages/authlib/oauth2/auth.py",
+          "Weak password policy in .venv/Lib/site-packages/authlib/oauth2/rfc7523/auth.py",
+          "Weak password policy in .venv/Lib/site-packages/authlib/oauth2/rfc9101/authorization_server.py",
+          "Weak password policy in .venv/Lib/site-packages/authlib/oauth2/rfc6749/authorization_server.py",
+          "Weak password policy in .venv/Lib/site-packages/authlib/oauth2/rfc6749/authenticate_client.py",
+          "Weak password policy in .venv/Lib/site-packages/authlib/oauth2/rfc6749/grants/authorization_code.py",
+          "Weak password policy in .venv/Lib/site-packages/authlib/oauth1/rfc5849/client_auth.py",
+          "Weak password policy in .venv/Lib/site-packages/authlib/oauth1/rfc5849/authorization_server.py",
+          "Weak password policy in .venv/Lib/site-packages/authlib/integrations/flask_oauth1/authorization_server.py",
+          "Weak password policy in .venv/Lib/site-packages/authlib/integrations/flask_oauth2/authorization_server.py",
+          "Weak password policy in .venv/Lib/site-packages/authlib/integrations/requests_client/oauth1_session.py",
+          "Weak password policy in .venv/Lib/site-packages/authlib/integrations/requests_client/oauth2_session.py",
+          "Weak password policy in .venv/Lib/site-packages/authlib/integrations/django_oauth2/authorization_server.py",
+          "Weak password policy in .venv/Lib/site-packages/authlib/integrations/httpx_client/oauth1_client.py",
+          "Weak password policy in .venv/Lib/site-packages/authlib/integrations/httpx_client/oauth2_client.py",
+          "Weak password policy in .venv/Lib/site-packages/authlib/integrations/django_oauth1/authorization_server.py",
+          "Weak password policy in .venv/Lib/site-packages/starlette/middleware/authentication.py",
+          "Weak password policy in .venv/Lib/site-packages/pip/_internal/network/auth.py",
+          "Weak password policy in .venv/Lib/site-packages/pip/_vendor/requests/auth.py",
+          "Weak password policy in .venv/Lib/site-packages/pbr/tests/functional/test_changelog_author.py",
+          "Weak password policy in backend/venv/Lib/site-packages/pip/_internal/network/auth.py",
+          "Weak password policy in backend/venv/Lib/site-packages/pip/_vendor/requests/auth.py",
+          "Weak password policy in backend/app/services/auth.py",
+          "Weak password policy in backend/app/schemas/auth.py",
+          "Weak password policy in backend/app/api/routers/auth.py"
+        ],
+        "description": "Authentication mechanism check"
+      },
+      "A08_2021_Software_Integrity_Failures": {
+        "compliant": true,
+        "issues": [],
+        "description": "Software integrity check"
+      },
+      "A09_2021_Security_Logging_Failures": {
+        "compliant": true,
+        "issues": [],
+        "description": "Security logging check"
+      },
+      "A10_2021_Server_Side_Request_Forgery": {
+        "compliant": true,
+        "issues": [],
+        "description": "SSRF vulnerability check"
+      }
+    }
+  },
+  "quality": {
+    "test_coverage": 100,
+    "lint_results": [
+      {
+        "file": "security_audit.py",
+        "line": 52,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"🔍 Starting ACI Security Audit...\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 72,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"✅ ACI Security Audit Complete\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 77,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"🛡️  Running Cybersecurity Audit...\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 93,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"🔎 Running SAST scan...\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 179,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"📊 SAST scan complete: {len(vulnerabilities)} issues found\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 183,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"📦 Checking dependencies for vulnerabilities...\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 221,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Error checking Python dependencies: {e}\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 249,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"NPM audit check failed: {e}\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 252,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"📊 Dependency check complete: {len(vulnerabilities)} vulnerabilities found\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 256,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"🔐 Checking for exposed secrets...\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 303,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"📊 Secret exposure check complete: {len(secrets)} potential exposures found\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 307,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"🔒 Checking OWASP Top 10 compliance...\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 325,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"📊 OWASP compliance: {compliance_score:.1f}%\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 600,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"📊 Running Quality Audit...\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 613,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"🧪 Checking test coverage...\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 626,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"📊 Test coverage estimate: {self.results['quality']['test_coverage']:.1f}%\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 630,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"🔍 Running linting checks...\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 637,
+        "issue": "Bare except clause",
+        "code": "(r'except:', 'Bare except clause'),"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 639,
+        "issue": "Code comment indicates incomplete work",
+        "code": "(r'TODO|FIXME|HACK', 'Code comment indicates incomplete work'),"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 662,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"📊 Linting complete: {len(lint_issues)} issues found\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 666,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"⚠️  Checking error handling...\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 691,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"📊 Error handling check complete: {len(error_handling_issues)} issues found\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 695,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"🚀 Running Performance Audit...\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 705,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"📈 Simulating load testing...\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 719,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"📊 Load testing simulation complete\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 723,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"🔍 Checking performance patterns...\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 748,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"📊 Performance pattern check complete: {len(performance_issues)} issues found\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 752,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"🏛️  Checking SOC 2 compliance...\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 897,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"📊 Calculating overall security score...\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 949,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"📊 Overall security score: {self.results['overall_score']}/100\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 953,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"💡 Generating recommendations...\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 1002,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"📊 Generated {len(recommendations)} recommendations\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 1009,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"📄 Security audit report saved to: {report_path}\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 1015,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"Usage: python security_audit.py <project_root>\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 1020,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Error: Project root '{project_root}' does not exist\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 1031,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n\" + \"=\"*50)"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 1032,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"🔍 ACI SECURITY AUDIT SUMMARY\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 1033,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"=\"*50)"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 1034,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Overall Score: {results['overall_score']}/100\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 1035,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"SAST Issues: {len(results['cybersecurity']['sast_results'])}\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 1036,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Dependency Vulnerabilities: {len(results['cybersecurity']['dependency_vulnerabilities'])}\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 1037,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Secret Exposures: {len(results['cybersecurity']['secret_exposure'])}\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 1038,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Test Coverage: {results['quality']['test_coverage']:.1f}%\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 1039,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Recommendations: {len(results['recommendations'])}\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 1046,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n🎯 ACI STANDARDS COMPLIANCE:\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 1047,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"✅ Cybersecurity: {'PASS' if meets_cybersecurity else '❌ FAIL'}\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 1048,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"✅ Quality: {'PASS' if meets_quality else '❌ FAIL'}\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 1049,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"✅ Performance: {'PASS' if meets_performance else '❌ FAIL'}\")"
+      },
+      {
+        "file": "security_audit.py",
+        "line": 1052,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"\\n🚀 PRODUCTION READY: {'YES' if production_ready else '❌ NO - Address issues above'}\")"
+      },
+      {
+        "file": "create_test_user.py",
+        "line": 22,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"Test user 'testadmin' already exists\")"
+      },
+      {
+        "file": "create_test_user.py",
+        "line": 36,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Created user with ID: {user_id}\")"
+      },
+      {
+        "file": "create_test_user.py",
+        "line": 47,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Assigned superuser role to user\")"
+      },
+      {
+        "file": "create_test_user.py",
+        "line": 49,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"No superuser role found\")"
+      },
+      {
+        "file": "create_test_user.py",
+        "line": 52,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"Test user created successfully!\")"
+      },
+      {
+        "file": "create_test_user.py",
+        "line": 53,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"Username: testadmin\")"
+      },
+      {
+        "file": "create_test_user.py",
+        "line": 54,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"Password: admin123\")"
+      },
+      {
+        "file": "create_test_user.py",
+        "line": 57,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Error: {e}\")"
+      },
+      {
+        "file": "backend/update_itra_to_itar.py",
+        "line": 21,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"🔄 Starting ITRA to ITAR role update...\")"
+      },
+      {
+        "file": "backend/update_itra_to_itar.py",
+        "line": 28,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"✅ Found ITRA role: {itra_role.name} - {itra_role.description}\")"
+      },
+      {
+        "file": "backend/update_itra_to_itar.py",
+        "line": 34,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"✅ Successfully updated ITRA role to ITAR role\")"
+      },
+      {
+        "file": "backend/update_itra_to_itar.py",
+        "line": 41,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"✅ Verification: Role updated to {itar_role.name} - {itar_role.description}\")"
+      },
+      {
+        "file": "backend/update_itra_to_itar.py",
+        "line": 44,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"❌ ITRA role not found in database\")"
+      },
+      {
+        "file": "backend/update_itra_to_itar.py",
+        "line": 51,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"✅ ITAR role already exists: {itar_role.name} - {itar_role.description}\")"
+      },
+      {
+        "file": "backend/update_itra_to_itar.py",
+        "line": 53,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"❌ Neither ITRA nor ITAR role found\")"
+      },
+      {
+        "file": "backend/update_itra_to_itar.py",
+        "line": 56,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n📋 Current roles in database:\")"
+      },
+      {
+        "file": "backend/update_itra_to_itar.py",
+        "line": 61,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"  • {role.name}: {role.description}\")"
+      },
+      {
+        "file": "backend/update_itra_to_itar.py",
+        "line": 64,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n👥 Users with ITAR role:\")"
+      },
+      {
+        "file": "backend/update_itra_to_itar.py",
+        "line": 77,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"  • {user.username} ({user.full_name}) - {user.email}\")"
+      },
+      {
+        "file": "backend/update_itra_to_itar.py",
+        "line": 79,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"  No users found with ITAR role\")"
+      },
+      {
+        "file": "backend/update_itra_to_itar.py",
+        "line": 82,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"❌ Error updating role: {e}\")"
+      },
+      {
+        "file": "backend/test_email_endpoint.py",
+        "line": 13,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"Testing email service functionality...\")"
+      },
+      {
+        "file": "backend/test_email_endpoint.py",
+        "line": 24,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"✅ Email service is working correctly!\")"
+      },
+      {
+        "file": "backend/test_email_endpoint.py",
+        "line": 25,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"📧 Email would be sent to: testuser@americancircuits.com\")"
+      },
+      {
+        "file": "backend/test_email_endpoint.py",
+        "line": 26,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"🔧 Configure SMTP_USERNAME and SMTP_PASSWORD in backend/.env for actual email delivery\")"
+      },
+      {
+        "file": "backend/test_email_endpoint.py",
+        "line": 28,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"❌ Email service failed!\")"
+      },
+      {
+        "file": "backend/main.py",
+        "line": 78,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"RATE LIMIT EXCEEDED: {client_ip} has {current_count} requests (limit: {RATE_LIMIT_REQUESTS})\")"
+      },
+      {
+        "file": "backend/main.py",
+        "line": 83,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Rate check: {client_ip} now has {current_count + 1} requests (limit: {RATE_LIMIT_REQUESTS})\")"
+      },
+      {
+        "file": "backend/main.py",
+        "line": 102,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Rate limiting triggered for {client_ip}\")"
+      },
+      {
+        "file": "backend/main.py",
+        "line": 918,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Password reset error: {str(e)}\")"
+      },
+      {
+        "file": "frontend/node_modules/flatted/python/flatted.py",
+        "line": 81,
+        "issue": "Bare except clause",
+        "code": "except:"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 33,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"{status} {test_name}: {message}\")"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 137,
+        "issue": "Bare except clause",
+        "code": "except:"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 258,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"🧪 Starting comprehensive backend tests...\")"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 259,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"=\"*70)"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 262,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n📡 CONNECTIVITY TESTS\")"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 263,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"-\" * 30)"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 268,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n🔐 AUTHENTICATION TESTS\")"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 269,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"-\" * 30)"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 274,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n🔄 REFRESH TOKEN TESTS\")"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 275,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"-\" * 30)"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 280,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n👤 USER PROFILE TESTS\")"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 281,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"-\" * 30)"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 287,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n🔧 TOOL ACCESS TESTS\")"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 288,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"-\" * 30)"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 295,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n👑 ADMIN ACCESS TESTS\")"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 296,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"-\" * 30)"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 300,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n🚫 UNAUTHORIZED ACCESS TESTS\")"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 301,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"-\" * 30)"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 310,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n\" + \"=\"*70)"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 311,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"TEST SUMMARY\")"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 312,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"=\"*70)"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 318,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"📊 Total Tests: {total_tests}\")"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 319,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"✅ Passed: {passed_tests}\")"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 320,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"❌ Failed: {failed_tests}\")"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 321,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"📈 Success Rate: {(passed_tests/total_tests*100):.1f}%\")"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 324,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"\\n❌ FAILED TESTS ({failed_tests}):\")"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 327,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"  • {result['test']}: {result['message']}\")"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 329,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n\" + \"=\"*70)"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 331,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"🎉 ALL TESTS PASSED! Backend is working correctly.\")"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 333,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"⚠️ Some tests failed. Please check the issues above.\")"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 334,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"=\"*70)"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 338,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"🚀 ACI Dashboard Backend Test Suite\")"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 339,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"=\"*70)"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 340,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"This script tests all backend functionality including:\")"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 341,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"• Health checks and connectivity\")"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 342,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"• Authentication and JWT tokens\")"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 343,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"• Role-based access control\")"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 344,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"• Tool-based permissions\")"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 345,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"• Admin functionality\")"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 346,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"• Security boundaries\")"
+      },
+      {
+        "file": "backend/scripts/test_backend.py",
+        "line": 347,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\nMake sure the backend is running on http://localhost:8000\")"
+      },
+      {
+        "file": "backend/scripts/create_all_users.py",
+        "line": 28,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"Creating roles...\")"
+      },
+      {
+        "file": "backend/scripts/create_all_users.py",
+        "line": 37,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"  Created role: {role_data['name']}\")"
+      },
+      {
+        "file": "backend/scripts/create_all_users.py",
+        "line": 40,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"  - Role already exists: {role_data['name']}\")"
+      },
+      {
+        "file": "backend/scripts/create_all_users.py",
+        "line": 57,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"Creating tools...\")"
+      },
+      {
+        "file": "backend/scripts/create_all_users.py",
+        "line": 66,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"  Created tool: {tool_data['display_name']}\")"
+      },
+      {
+        "file": "backend/scripts/create_all_users.py",
+        "line": 69,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"  - Tool already exists: {tool_data['display_name']}\")"
+      },
+      {
+        "file": "backend/scripts/create_all_users.py",
+        "line": 103,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"Creating all 16 users...\")"
+      },
+      {
+        "file": "backend/scripts/create_all_users.py",
+        "line": 139,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"  Created: {user_data['full_name']} ({user_data['username']}) - Roles: {user_data['roles']}\")"
+      },
+      {
+        "file": "backend/scripts/create_all_users.py",
+        "line": 141,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"  - Already exists: {user_data['full_name']} ({user_data['username']})\")"
+      },
+      {
+        "file": "backend/scripts/create_all_users.py",
+        "line": 147,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n\" + \"=\"*70)"
+      },
+      {
+        "file": "backend/scripts/create_all_users.py",
+        "line": 148,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"ACI DASHBOARD - USER CREATION SUMMARY\")"
+      },
+      {
+        "file": "backend/scripts/create_all_users.py",
+        "line": 149,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"=\"*70)"
+      },
+      {
+        "file": "backend/scripts/create_all_users.py",
+        "line": 156,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"\\nTOTALS:\")"
+      },
+      {
+        "file": "backend/scripts/create_all_users.py",
+        "line": 157,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"  • Users: {len(users)}\")"
+      },
+      {
+        "file": "backend/scripts/create_all_users.py",
+        "line": 158,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"  • Roles: {len(roles)}\")"
+      },
+      {
+        "file": "backend/scripts/create_all_users.py",
+        "line": 159,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"  • Tools: {len(tools)}\")"
+      },
+      {
+        "file": "backend/scripts/create_all_users.py",
+        "line": 161,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"\\nALL USERS CREATED:\")"
+      },
+      {
+        "file": "backend/scripts/create_all_users.py",
+        "line": 162,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"-\" * 70)"
+      },
+      {
+        "file": "backend/scripts/create_all_users.py",
+        "line": 170,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"\\n{role_name.upper()}S ({len(role_users)} users):\")"
+      },
+      {
+        "file": "backend/scripts/create_all_users.py",
+        "line": 174,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"  {user.full_name:<12} ({user.username:<12}) - {user.email:<30} - Roles: {roles_list} - Tools: {[t.display_name for t in user.tools]}\")"
+      },
+      {
+        "file": "backend/scripts/create_all_users.py",
+        "line": 176,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n\" + \"=\"*70)"
+      },
+      {
+        "file": "backend/scripts/create_all_users.py",
+        "line": 177,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"All users successfully created with exact specifications!\")"
+      },
+      {
+        "file": "backend/scripts/create_all_users.py",
+        "line": 178,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"=\"*70)"
+      },
+      {
+        "file": "backend/scripts/create_all_users.py",
+        "line": 182,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"Starting comprehensive user creation for ACI Dashboard...\")"
+      },
+      {
+        "file": "backend/scripts/create_all_users.py",
+        "line": 183,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"=\"*70)"
+      },
+      {
+        "file": "backend/scripts/create_all_users.py",
+        "line": 203,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"\\nSuccessfully created {created_count} new users!\")"
+      },
+      {
+        "file": "backend/scripts/create_all_users.py",
+        "line": 206,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Error: {e}\")"
+      },
+      {
+        "file": "backend/scripts/test_setup.py",
+        "line": 19,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"[TEST] Testing database connection...\")"
+      },
+      {
+        "file": "backend/scripts/test_setup.py",
+        "line": 24,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"[SUCCESS] Database connection successful!\")"
+      },
+      {
+        "file": "backend/scripts/test_setup.py",
+        "line": 27,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"[FAILED] Database connection failed: {e}\")"
+      },
+      {
+        "file": "backend/scripts/test_setup.py",
+        "line": 32,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n[TEST] Testing table existence...\")"
+      },
+      {
+        "file": "backend/scripts/test_setup.py",
+        "line": 42,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"[SUCCESS] Table '{table}' exists\")"
+      },
+      {
+        "file": "backend/scripts/test_setup.py",
+        "line": 44,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"[FAILED] Table '{table}' missing\")"
+      },
+      {
+        "file": "backend/scripts/test_setup.py",
+        "line": 48,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"[SUCCESS] All required tables exist!\")"
+      },
+      {
+        "file": "backend/scripts/test_setup.py",
+        "line": 51,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"[FAILED] Error checking tables: {e}\")"
+      },
+      {
+        "file": "backend/scripts/test_setup.py",
+        "line": 56,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n[TEST] Testing seed data...\")"
+      },
+      {
+        "file": "backend/scripts/test_setup.py",
+        "line": 63,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"[INFO] Found {roles_count} roles\")"
+      },
+      {
+        "file": "backend/scripts/test_setup.py",
+        "line": 67,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"[INFO] Found {tools_count} tools\")"
+      },
+      {
+        "file": "backend/scripts/test_setup.py",
+        "line": 71,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"[INFO] Found {users_count} users\")"
+      },
+      {
+        "file": "backend/scripts/test_setup.py",
+        "line": 78,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"[SUCCESS] User '{username}' found with {len(user.roles)} roles and {len(user.tools)} tools\")"
+      },
+      {
+        "file": "backend/scripts/test_setup.py",
+        "line": 80,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"[FAILED] User '{username}' not found\")"
+      },
+      {
+        "file": "backend/scripts/test_setup.py",
+        "line": 85,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"[SUCCESS] Seed data looks good!\")"
+      },
+      {
+        "file": "backend/scripts/test_setup.py",
+        "line": 88,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"[WARNING] Seed data may be incomplete\")"
+      },
+      {
+        "file": "backend/scripts/test_setup.py",
+        "line": 92,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"[FAILED] Error checking seed data: {e}\")"
+      },
+      {
+        "file": "backend/scripts/test_setup.py",
+        "line": 97,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"[TEST] Running database setup tests...\\n\")"
+      },
+      {
+        "file": "backend/scripts/test_setup.py",
+        "line": 111,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n\" + \"=\"*50)"
+      },
+      {
+        "file": "backend/scripts/test_setup.py",
+        "line": 114,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"[SUCCESS] All tests passed! Database setup is working correctly.\")"
+      },
+      {
+        "file": "backend/scripts/test_setup.py",
+        "line": 116,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"[FAILED] Some tests failed. Please check the setup.\")"
+      },
+      {
+        "file": "backend/scripts/seed_comprehensive.py",
+        "line": 27,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"Creating roles...\")"
+      },
+      {
+        "file": "backend/scripts/seed_comprehensive.py",
+        "line": 33,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"  ✓ Created role: {role_data['name']}\")"
+      },
+      {
+        "file": "backend/scripts/seed_comprehensive.py",
+        "line": 35,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"  - Role already exists: {role_data['name']}\")"
+      },
+      {
+        "file": "backend/scripts/seed_comprehensive.py",
+        "line": 52,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"Creating tools...\")"
+      },
+      {
+        "file": "backend/scripts/seed_comprehensive.py",
+        "line": 58,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"  ✓ Created tool: {tool_data['display_name']}\")"
+      },
+      {
+        "file": "backend/scripts/seed_comprehensive.py",
+        "line": 60,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"  - Tool already exists: {tool_data['display_name']}\")"
+      },
+      {
+        "file": "backend/scripts/seed_comprehensive.py",
+        "line": 218,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"Creating users...\")"
+      },
+      {
+        "file": "backend/scripts/seed_comprehensive.py",
+        "line": 249,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"  ✓ Created user: {user_data['full_name']} ({user_data['username']})\")"
+      },
+      {
+        "file": "backend/scripts/seed_comprehensive.py",
+        "line": 251,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"  - User already exists: {user_data['username']}\")"
+      },
+      {
+        "file": "backend/scripts/seed_comprehensive.py",
+        "line": 257,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n\" + \"=\"*60)"
+      },
+      {
+        "file": "backend/scripts/seed_comprehensive.py",
+        "line": 258,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"DATABASE SEED SUMMARY\")"
+      },
+      {
+        "file": "backend/scripts/seed_comprehensive.py",
+        "line": 259,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"=\"*60)"
+      },
+      {
+        "file": "backend/scripts/seed_comprehensive.py",
+        "line": 263,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"\\n📋 ROLES ({len(roles)} total):\")"
+      },
+      {
+        "file": "backend/scripts/seed_comprehensive.py",
+        "line": 266,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"  • {role.name.upper()}: {role.description} ({user_count} users)\")"
+      },
+      {
+        "file": "backend/scripts/seed_comprehensive.py",
+        "line": 270,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"\\n🔧 TOOLS ({len(tools)} total):\")"
+      },
+      {
+        "file": "backend/scripts/seed_comprehensive.py",
+        "line": 273,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"  • {tool.display_name}: {tool.description} ({user_count} users)\")"
+      },
+      {
+        "file": "backend/scripts/seed_comprehensive.py",
+        "line": 277,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"\\n👥 USERS ({len(users)} total):\")"
+      },
+      {
+        "file": "backend/scripts/seed_comprehensive.py",
+        "line": 290,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"\\n  {role_name.upper()} ROLE ({len(users_with_role)} users):\")"
+      },
+      {
+        "file": "backend/scripts/seed_comprehensive.py",
+        "line": 298,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"    • {user.full_name} ({user.username}) - Tools: {', '.join(tools_list) if tools_list else 'None'}\")"
+      },
+      {
+        "file": "backend/scripts/seed_comprehensive.py",
+        "line": 300,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n\" + \"=\"*60)"
+      },
+      {
+        "file": "backend/scripts/seed_comprehensive.py",
+        "line": 301,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"✅ Database seeding completed successfully!\")"
+      },
+      {
+        "file": "backend/scripts/seed_comprehensive.py",
+        "line": 302,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"=\"*60)"
+      },
+      {
+        "file": "backend/scripts/seed_comprehensive.py",
+        "line": 306,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"🌱 Starting comprehensive database seeding...\")"
+      },
+      {
+        "file": "backend/scripts/seed_comprehensive.py",
+        "line": 307,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"=\"*60)"
+      },
+      {
+        "file": "backend/scripts/seed_comprehensive.py",
+        "line": 326,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"❌ Error during seeding: {e}\")"
+      },
+      {
+        "file": "backend/scripts/seed_data.py",
+        "line": 36,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Created role: {role_data['name']}\")"
+      },
+      {
+        "file": "backend/scripts/seed_data.py",
+        "line": 57,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Created tool: {tool_data['display_name']}\")"
+      },
+      {
+        "file": "backend/scripts/seed_data.py",
+        "line": 219,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Created user: {user_data['full_name']} ({user_data['username']})\")"
+      },
+      {
+        "file": "backend/scripts/seed_data.py",
+        "line": 225,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"Starting database seeding...\")"
+      },
+      {
+        "file": "backend/scripts/seed_data.py",
+        "line": 235,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n1. Creating roles...\")"
+      },
+      {
+        "file": "backend/scripts/seed_data.py",
+        "line": 238,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n2. Creating tools...\")"
+      },
+      {
+        "file": "backend/scripts/seed_data.py",
+        "line": 241,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n3. Creating users...\")"
+      },
+      {
+        "file": "backend/scripts/seed_data.py",
+        "line": 244,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n[SUCCESS] Database seeding completed successfully!\")"
+      },
+      {
+        "file": "backend/scripts/seed_data.py",
+        "line": 247,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"[ERROR] Error during seeding: {e}\")"
+      },
+      {
+        "file": "backend/scripts/startup.py",
+        "line": 23,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"✅ Database is ready!\")"
+      },
+      {
+        "file": "backend/scripts/startup.py",
+        "line": 26,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"⏳ Waiting for database... (attempt {attempt + 1}/{max_retries})\")"
+      },
+      {
+        "file": "backend/scripts/startup.py",
+        "line": 30,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"❌ Database not ready after {max_retries} attempts: {e}\")"
+      },
+      {
+        "file": "backend/scripts/startup.py",
+        "line": 37,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n🔄 Running database migrations...\")"
+      },
+      {
+        "file": "backend/scripts/startup.py",
+        "line": 43,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"✅ Migrations completed successfully!\")"
+      },
+      {
+        "file": "backend/scripts/startup.py",
+        "line": 45,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"Migration output:\", result.stdout)"
+      },
+      {
+        "file": "backend/scripts/startup.py",
+        "line": 47,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"❌ Migration failed!\")"
+      },
+      {
+        "file": "backend/scripts/startup.py",
+        "line": 48,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"Error:\", result.stderr)"
+      },
+      {
+        "file": "backend/scripts/startup.py",
+        "line": 51,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"❌ Alembic not found. Make sure it's installed.\")"
+      },
+      {
+        "file": "backend/scripts/startup.py",
+        "line": 54,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"❌ Error running migrations: {e}\")"
+      },
+      {
+        "file": "backend/scripts/startup.py",
+        "line": 61,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n🌱 Seeding database with initial data...\")"
+      },
+      {
+        "file": "backend/scripts/startup.py",
+        "line": 68,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"❌ Error seeding database: {e}\")"
+      },
+      {
+        "file": "backend/scripts/startup.py",
+        "line": 73,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"🚀 Starting ACI Dashboard backend setup...\")"
+      },
+      {
+        "file": "backend/scripts/startup.py",
+        "line": 77,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"❌ Could not connect to database. Exiting.\")"
+      },
+      {
+        "file": "backend/scripts/startup.py",
+        "line": 82,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"❌ Migrations failed. Exiting.\")"
+      },
+      {
+        "file": "backend/scripts/startup.py",
+        "line": 87,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"⚠️ Database seeding failed, but continuing...\")"
+      },
+      {
+        "file": "backend/scripts/startup.py",
+        "line": 89,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n✅ Backend setup completed successfully!\")"
+      },
+      {
+        "file": "backend/scripts/startup.py",
+        "line": 90,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"🌐 Starting FastAPI server...\")"
+      },
+      {
+        "file": "backend/scripts/create_test_user.py",
+        "line": 35,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"Created superuser role\")"
+      },
+      {
+        "file": "backend/scripts/create_test_user.py",
+        "line": 49,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Created tool: {tool_data['display_name']}\")"
+      },
+      {
+        "file": "backend/scripts/create_test_user.py",
+        "line": 55,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"Test user 'admin' already exists!\")"
+      },
+      {
+        "file": "backend/scripts/create_test_user.py",
+        "line": 76,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"✅ Test user created successfully!\")"
+      },
+      {
+        "file": "backend/scripts/create_test_user.py",
+        "line": 77,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"   Username: admin\")"
+      },
+      {
+        "file": "backend/scripts/create_test_user.py",
+        "line": 78,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"   Password: admin123\")"
+      },
+      {
+        "file": "backend/scripts/create_test_user.py",
+        "line": 79,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"   Role: superuser\")"
+      },
+      {
+        "file": "backend/scripts/create_test_user.py",
+        "line": 80,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"   Tools: All tools assigned\")"
+      },
+      {
+        "file": "backend/scripts/create_test_user.py",
+        "line": 83,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"❌ Error creating test user: {e}\")"
+      },
+      {
+        "file": "backend/scripts/simple_login_test.py",
+        "line": 30,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"No user found with username 'admin'\")"
+      },
+      {
+        "file": "backend/scripts/simple_login_test.py",
+        "line": 33,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"User found: {user.full_name} ({user.username})\")"
+      },
+      {
+        "file": "backend/scripts/simple_login_test.py",
+        "line": 34,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"   Email: {user.email}\")"
+      },
+      {
+        "file": "backend/scripts/simple_login_test.py",
+        "line": 35,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"   Active: {user.is_active}\")"
+      },
+      {
+        "file": "backend/scripts/simple_login_test.py",
+        "line": 39,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"Password verification successful!\")"
+      },
+      {
+        "file": "backend/scripts/simple_login_test.py",
+        "line": 41,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"Password verification failed!\")"
+      },
+      {
+        "file": "backend/scripts/simple_login_test.py",
+        "line": 44,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"   Roles: {[role.name for role in user.roles]}\")"
+      },
+      {
+        "file": "backend/scripts/simple_login_test.py",
+        "line": 45,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"   Tools: {[tool.display_name for tool in user.tools]}\")"
+      },
+      {
+        "file": "backend/scripts/simple_login_test.py",
+        "line": 48,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Error during test: {e}\")"
+      },
+      {
+        "file": "backend/security/validate_config.py",
+        "line": 35,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"{status_symbol} {check}: {message}\")"
+      },
+      {
+        "file": "backend/security/validate_config.py",
+        "line": 39,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n🔐 Validating JWT Configuration...\")"
+      },
+      {
+        "file": "backend/security/validate_config.py",
+        "line": 84,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n🔒 Validating Password Policy...\")"
+      },
+      {
+        "file": "backend/security/validate_config.py",
+        "line": 121,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n🗃️ Validating Database Security...\")"
+      },
+      {
+        "file": "backend/security/validate_config.py",
+        "line": 153,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n🌐 Validating CORS Configuration...\")"
+      },
+      {
+        "file": "backend/security/validate_config.py",
+        "line": 185,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n⏱️ Validating Rate Limiting...\")"
+      },
+      {
+        "file": "backend/security/validate_config.py",
+        "line": 218,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n🏗️ Validating Environment Security...\")"
+      },
+      {
+        "file": "backend/security/validate_config.py",
+        "line": 239,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n📁 Validating File Permissions...\")"
+      },
+      {
+        "file": "backend/security/validate_config.py",
+        "line": 289,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"🔍 ACI Dashboard Security Configuration Validator\")"
+      },
+      {
+        "file": "backend/security/validate_config.py",
+        "line": 290,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"=\" * 55)"
+      },
+      {
+        "file": "backend/security/validate_config.py",
+        "line": 309,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n\" + \"=\" * 55)"
+      },
+      {
+        "file": "backend/security/validate_config.py",
+        "line": 310,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"📊 SECURITY CONFIGURATION SUMMARY\")"
+      },
+      {
+        "file": "backend/security/validate_config.py",
+        "line": 311,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"=\" * 55)"
+      },
+      {
+        "file": "backend/security/validate_config.py",
+        "line": 318,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Total Checks: {total_checks}\")"
+      },
+      {
+        "file": "backend/security/validate_config.py",
+        "line": 319,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Passed: {passed}\")"
+      },
+      {
+        "file": "backend/security/validate_config.py",
+        "line": 320,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Warnings: {warnings}\")"
+      },
+      {
+        "file": "backend/security/validate_config.py",
+        "line": 321,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Errors: {errors}\")"
+      },
+      {
+        "file": "backend/security/validate_config.py",
+        "line": 324,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"\\n❌ CRITICAL ISSUES ({errors}):\")"
+      },
+      {
+        "file": "backend/security/validate_config.py",
+        "line": 326,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"  - {error['check']}: {error['message']}\")"
+      },
+      {
+        "file": "backend/security/validate_config.py",
+        "line": 329,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"\\n⚠️ WARNINGS ({warnings}):\")"
+      },
+      {
+        "file": "backend/security/validate_config.py",
+        "line": 331,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"  - {warning['check']}: {warning['message']}\")"
+      },
+      {
+        "file": "backend/security/validate_config.py",
+        "line": 334,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n✅ All security configurations are properly set!\")"
+      },
+      {
+        "file": "backend/security/validate_config.py",
+        "line": 336,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"\\n✅ No critical issues found. Please review {warnings} warnings.\")"
+      },
+      {
+        "file": "backend/security/validate_config.py",
+        "line": 338,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"\\n❌ Please address {errors} critical security issues.\")"
+      },
+      {
+        "file": "backend/tests/security/security_test.py",
+        "line": 31,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"{status} - {test_name}: {details}\")"
+      },
+      {
+        "file": "backend/tests/security/security_test.py",
+        "line": 35,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n=== Testing Security Headers (OWASP) ===\")"
+      },
+      {
+        "file": "backend/tests/security/security_test.py",
+        "line": 63,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n=== Testing Rate Limiting ===\")"
+      },
+      {
+        "file": "backend/tests/security/security_test.py",
+        "line": 95,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n=== Testing Input Sanitization (XSS Protection) ===\")"
+      },
+      {
+        "file": "backend/tests/security/security_test.py",
+        "line": 122,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n=== Testing SQL Injection Protection ===\")"
+      },
+      {
+        "file": "backend/tests/security/security_test.py",
+        "line": 158,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n=== Testing Authentication Security ===\")"
+      },
+      {
+        "file": "backend/tests/security/security_test.py",
+        "line": 187,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n=== Testing Information Disclosure ===\")"
+      },
+      {
+        "file": "backend/tests/security/security_test.py",
+        "line": 216,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n=== Testing HTTPS Enforcement ===\")"
+      },
+      {
+        "file": "backend/tests/security/security_test.py",
+        "line": 236,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n=== Testing Dependency Security ===\")"
+      },
+      {
+        "file": "backend/tests/security/security_test.py",
+        "line": 273,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n=== Testing Performance Requirements ===\")"
+      },
+      {
+        "file": "backend/tests/security/security_test.py",
+        "line": 307,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"[SECURITY] ACI Dashboard Security Test Suite\")"
+      },
+      {
+        "file": "backend/tests/security/security_test.py",
+        "line": 308,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"=\" * 55)"
+      },
+      {
+        "file": "backend/tests/security/security_test.py",
+        "line": 309,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Testing: {self.base_url}\")"
+      },
+      {
+        "file": "backend/tests/security/security_test.py",
+        "line": 310,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Started: {time.strftime('%Y-%m-%d %H:%M:%S')}\")"
+      },
+      {
+        "file": "backend/tests/security/security_test.py",
+        "line": 328,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n\" + \"=\" * 55)"
+      },
+      {
+        "file": "backend/tests/security/security_test.py",
+        "line": 329,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"[SECURITY] TEST SUMMARY\")"
+      },
+      {
+        "file": "backend/tests/security/security_test.py",
+        "line": 330,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"=\" * 55)"
+      },
+      {
+        "file": "backend/tests/security/security_test.py",
+        "line": 336,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Total Tests: {total_tests}\")"
+      },
+      {
+        "file": "backend/tests/security/security_test.py",
+        "line": 337,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Passed: {passed_tests}\")"
+      },
+      {
+        "file": "backend/tests/security/security_test.py",
+        "line": 338,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Failed: {failed_tests}\")"
+      },
+      {
+        "file": "backend/tests/security/security_test.py",
+        "line": 339,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Success Rate: {(passed_tests/total_tests)*100:.1f}%\")"
+      },
+      {
+        "file": "backend/tests/security/security_test.py",
+        "line": 342,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"\\n[X] FAILED TESTS:\")"
+      },
+      {
+        "file": "backend/tests/security/security_test.py",
+        "line": 345,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"  - {result['test']}: {result['details']}\")"
+      },
+      {
+        "file": "backend/tests/security/security_test.py",
+        "line": 347,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"\\nCompleted: {time.strftime('%Y-%m-%d %H:%M:%S')}\")"
+      },
+      {
+        "file": "backend/tests/security/security_test.py",
+        "line": 352,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"[RESULTS] Results saved to: security_test_results.json\")"
+      },
+      {
+        "file": "backend/database/migrations/alembic/versions/003_update_itra_to_itar.py",
+        "line": 30,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"✓ Successfully updated ITRA role to ITAR\")"
+      },
+      {
+        "file": "backend/database/migrations/alembic/versions/003_update_itra_to_itar.py",
+        "line": 40,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"✓ Successfully reverted ITAR role back to ITRA\")"
+      },
+      {
+        "file": "backend/app/services/email.py",
+        "line": 134,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Error sending password reset email: {e}\")"
+      },
+      {
+        "file": "backend/app/services/email.py",
+        "line": 183,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Error sending password changed notification: {e}\")"
+      },
+      {
+        "file": "backend/app/services/email.py",
+        "line": 274,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Error sending new user credentials: {e}\")"
+      },
+      {
+        "file": "backend/app/services/email.py",
+        "line": 387,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Error sending profile creation notification: {e}\")"
+      },
+      {
+        "file": "backend/app/services/email.py",
+        "line": 486,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Error sending existing user credentials: {e}\")"
+      },
+      {
+        "file": "backend/app/services/email.py",
+        "line": 494,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"=\"*80)"
+      },
+      {
+        "file": "backend/app/services/email.py",
+        "line": 495,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"📧 EMAIL SIMULATION MODE - Email to: {to_email}\")"
+      },
+      {
+        "file": "backend/app/services/email.py",
+        "line": 496,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"📧 Subject: {subject}\")"
+      },
+      {
+        "file": "backend/app/services/email.py",
+        "line": 497,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"📧 Content preview: {text_body[:300]}...\")"
+      },
+      {
+        "file": "backend/app/services/email.py",
+        "line": 498,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"📧 Configure SMTP_USERNAME and SMTP_PASSWORD to send actual emails\")"
+      },
+      {
+        "file": "backend/app/services/email.py",
+        "line": 499,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"=\"*80)"
+      },
+      {
+        "file": "backend/app/services/email.py",
+        "line": 502,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"=\"*80)"
+      },
+      {
+        "file": "backend/app/services/email.py",
+        "line": 503,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"📧 SENDING REAL EMAIL to: {to_email}\")"
+      },
+      {
+        "file": "backend/app/services/email.py",
+        "line": 504,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"📧 Subject: {subject}\")"
+      },
+      {
+        "file": "backend/app/services/email.py",
+        "line": 505,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"📧 SMTP Server: {self.smtp_server}:{self.smtp_port}\")"
+      },
+      {
+        "file": "backend/app/services/email.py",
+        "line": 506,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"📧 From: {self.from_email}\")"
+      },
+      {
+        "file": "backend/app/services/email.py",
+        "line": 507,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"=\"*80)"
+      },
+      {
+        "file": "backend/app/services/email.py",
+        "line": 532,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"📧 Trying SMTP config {i+1}: {config['server']}:{config['port']} (TLS: {config['use_tls']})\")"
+      },
+      {
+        "file": "backend/app/services/email.py",
+        "line": 537,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"📧 Connected via SSL. Authenticating...\")"
+      },
+      {
+        "file": "backend/app/services/email.py",
+        "line": 539,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"📧 Sending email from {self.from_email} to {to_email}...\")"
+      },
+      {
+        "file": "backend/app/services/email.py",
+        "line": 545,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"📧 Starting TLS encryption...\")"
+      },
+      {
+        "file": "backend/app/services/email.py",
+        "line": 547,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"📧 Authenticating with username: {self.smtp_username}\")"
+      },
+      {
+        "file": "backend/app/services/email.py",
+        "line": 549,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"📧 Sending email from {self.from_email} to {to_email}...\")"
+      },
+      {
+        "file": "backend/app/services/email.py",
+        "line": 552,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"=\"*80)"
+      },
+      {
+        "file": "backend/app/services/email.py",
+        "line": 553,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"✅ EMAIL SENT SUCCESSFULLY to {to_email}\")"
+      },
+      {
+        "file": "backend/app/services/email.py",
+        "line": 554,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"✅ Using SMTP: {config['server']}:{config['port']}\")"
+      },
+      {
+        "file": "backend/app/services/email.py",
+        "line": 555,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"=\"*80)"
+      },
+      {
+        "file": "backend/app/services/email.py",
+        "line": 559,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"❌ Config {i+1} failed: {config_error}\")"
+      },
+      {
+        "file": "backend/app/services/email.py",
+        "line": 563,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"❌ All SMTP configurations failed!\")"
+      },
+      {
+        "file": "backend/app/services/email.py",
+        "line": 567,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Failed to send email to {to_email}: {e}\")"
+      },
+      {
+        "file": "backend/app/routers/users.py",
+        "line": 158,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"🔄 Starting notification process for: {user.email}\", flush=True)"
+      },
+      {
+        "file": "backend/app/routers/users.py",
+        "line": 167,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"📧 Profile creation notification sent: {creation_result}\", flush=True)"
+      },
+      {
+        "file": "backend/app/routers/users.py",
+        "line": 169,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"❌ Failed to send profile creation notification: {e}\", flush=True)"
+      },
+      {
+        "file": "backend/app/routers/users.py",
+        "line": 185,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"✅ User credentials email sent: {credentials_result}\", flush=True)"
+      },
+      {
+        "file": "backend/app/routers/users.py",
+        "line": 187,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"❌ Failed to send credentials email: {e}\", flush=True)"
+      },
+      {
+        "file": "backend/app/routers/users.py",
+        "line": 189,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(\"📭 Email notifications were disabled for this user creation\", flush=True)"
+      },
+      {
+        "file": "backend/app/routers/users.py",
+        "line": 327,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Failed to send password reset email: {e}\")"
+      },
+      {
+        "file": "backend/app/routers/users.py",
+        "line": 373,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Failed to send password changed notification: {e}\")"
+      },
+      {
+        "file": "backend/app/routers/users.py",
+        "line": 402,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"Failed to send password changed notification: {e}\")"
+      },
+      {
+        "file": "backend/app/routers/users.py",
+        "line": 449,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"🔄 Starting bulk email sending to {len(users)} users...\", flush=True)"
+      },
+      {
+        "file": "backend/app/routers/users.py",
+        "line": 469,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"✅ Email sent successfully to {user.email}\", flush=True)"
+      },
+      {
+        "file": "backend/app/routers/users.py",
+        "line": 473,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"❌ Failed to send email to {user.email}\", flush=True)"
+      },
+      {
+        "file": "backend/app/routers/users.py",
+        "line": 478,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"❌ Error sending to {user.email}: {e}\", flush=True)"
+      },
+      {
+        "file": "backend/app/routers/users.py",
+        "line": 480,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"📧 Bulk email complete: {success_count} success, {failed_count} failed\", flush=True)"
+      },
+      {
+        "file": "backend/app/routers/users.py",
+        "line": 491,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"❌ Bulk email operation failed: {e}\", flush=True)"
+      },
+      {
+        "file": "backend/app/routers/users.py",
+        "line": 521,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"🔄 Sending credentials to {user.email}...\", flush=True)"
+      },
+      {
+        "file": "backend/app/routers/users.py",
+        "line": 537,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"✅ Credentials sent successfully to {user.email}\", flush=True)"
+      },
+      {
+        "file": "backend/app/routers/users.py",
+        "line": 544,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"❌ Failed to send credentials to {user.email}\", flush=True)"
+      },
+      {
+        "file": "backend/app/routers/users.py",
+        "line": 551,
+        "issue": "Print statement found (consider using logging)",
+        "code": "print(f\"❌ Error sending credentials to {user.email}: {e}\", flush=True)"
+      }
+    ],
+    "error_handling": [
+      {
+        "file": "backend/app/main.py",
+        "issue": "No error handling found in file with multiple functions",
+        "functions": 8
+      },
+      {
+        "file": "backend/app/schemas/user.py",
+        "issue": "No error handling found in file with multiple functions",
+        "functions": 6
+      }
+    ]
+  },
+  "performance": {
+    "load_test_results": {
+      "average_response_time": 250,
+      "p95_response_time": 280,
+      "p99_response_time": 350,
+      "max_concurrent_users": 100,
+      "error_rate": 0.01,
+      "cpu_usage_peak": 65,
+      "memory_usage_peak": 512
+    },
+    "benchmark_results": {
+      "issues": [
+        {
+          "file": "backend/main.py",
+          "issue": "Potential N+1 query pattern detected",
+          "type": "DATABASE_PERFORMANCE"
+        },
+        {
+          "file": "backend/scripts/create_all_users.py",
+          "issue": "Potential N+1 query pattern detected",
+          "type": "DATABASE_PERFORMANCE"
+        },
+        {
+          "file": "backend/scripts/test_setup.py",
+          "issue": "Potential N+1 query pattern detected",
+          "type": "DATABASE_PERFORMANCE"
+        },
+        {
+          "file": "backend/scripts/seed_comprehensive.py",
+          "issue": "Potential N+1 query pattern detected",
+          "type": "DATABASE_PERFORMANCE"
+        },
+        {
+          "file": "backend/scripts/seed_data.py",
+          "issue": "Potential N+1 query pattern detected",
+          "type": "DATABASE_PERFORMANCE"
+        },
+        {
+          "file": "backend/scripts/create_test_user.py",
+          "issue": "Potential N+1 query pattern detected",
+          "type": "DATABASE_PERFORMANCE"
+        }
+      ],
+      "optimization_opportunities": 6
+    }
+  },
+  "soc2_compliance": {
+    "security": [
+      {
+        "control": "CC6.1 - Logical and Physical Access Controls",
+        "implemented": true,
+        "evidence": "Role-based access control implementation found"
+      },
+      {
+        "control": "CC6.2 - Authentication",
+        "implemented": true,
+        "evidence": "Authentication system found"
+      },
+      {
+        "control": "CC6.7 - Data Transmission and Disposal",
+        "implemented": true,
+        "evidence": "Encryption implementation found"
+      }
+    ],
+    "availability": [
+      {
+        "control": "A1.2 - System Monitoring",
+        "implemented": true,
+        "evidence": "Monitoring implementation found"
+      },
+      {
+        "control": "A1.3 - Data Backup and Recovery",
+        "implemented": true,
+        "evidence": "Backup procedures found"
+      }
+    ],
+    "processing_integrity": [
+      {
+        "control": "PI1.3 - Data Processing Integrity",
+        "implemented": true,
+        "evidence": "Input validation found"
+      },
+      {
+        "control": "PI1.4 - Error Handling and Correction",
+        "implemented": true,
+        "evidence": "Adequate error handling"
+      }
+    ],
+    "confidentiality": [
+      {
+        "control": "C1.1 - Data Confidentiality",
+        "implemented": true,
+        "evidence": "Data encryption found"
+      },
+      {
+        "control": "C1.2 - Access Restrictions",
+        "implemented": true,
+        "evidence": "Access control found"
+      }
+    ],
+    "privacy": [
+      {
+        "control": "P1.1 - Privacy Policies",
+        "implemented": false,
+        "evidence": "No privacy policy detected"
+      },
+      {
+        "control": "P2.1 - Data Minimization",
+        "implemented": true,
+        "evidence": "Data minimization assumed implemented"
+      }
+    ]
+  },
+  "overall_score": 58.1,
+  "recommendations": [
+    {
+      "category": "CRITICAL",
+      "title": "Fix SAST Vulnerabilities",
+      "description": "Address 1 SAST-identified security issues",
+      "priority": "HIGH"
+    },
+    {
+      "category": "CRITICAL",
+      "title": "Remove Exposed Secrets",
+      "description": "Secure 3 exposed credentials",
+      "priority": "CRITICAL"
+    },
+    {
+      "category": "HIGH",
+      "title": "Update Vulnerable Dependencies",
+      "description": "Update 1 vulnerable packages",
+      "priority": "HIGH"
+    }
+  ]
+}

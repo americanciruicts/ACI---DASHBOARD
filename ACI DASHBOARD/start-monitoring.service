@@ -1,0 +1,17 @@
+[Unit]
+Description=ACI Dashboard Monitoring Service
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/home/tony/ACI DASHBOARD
+ExecStart=/home/tony/ACI DASHBOARD/monitor.sh
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

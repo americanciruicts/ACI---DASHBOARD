@@ -1,0 +1,109 @@
+# Multi-stage production Dockerfile with security hardening
+# ACI Security Standards Compliant
+
+# Stage 1: Build stage
+FROM python:3.11-slim as builder
+
+# Security: Create non-root user
+RUN groupadd -r appgroup && useradd -r -g appgroup appuser
+
+# Install system dependencies with minimal attack surface
+RUN apt-get update && apt-get install -y \
+    gcc \
+    g++ \
+    --no-install-recommends \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set up virtual environment
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Copy and install Python dependencies
+COPY requirements.txt /tmp/
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r /tmp/requirements.txt && \
+    pip install --no-cache-dir gunicorn[gevent]==21.2.0
+
+# Stage 2: Production stage
+FROM python:3.11-slim
+
+# Security metadata
+LABEL maintainer="ACI Security Team"
+LABEL version="1.0"
+LABEL security.standard="ACI-v1.0"
+LABEL security.scan-date="2025-09-03"
+
+# Security: Create non-root user and group
+RUN groupadd -r -g 1000 appgroup && \
+    useradd -r -u 1000 -g appgroup -s /bin/false -c "ACI App User" appuser
+
+# Install minimal system dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    dumb-init \
+    --no-install-recommends \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Copy Python environment from builder
+COPY --from=builder /opt/venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Set secure working directory
+WORKDIR /app
+
+# Copy application code with proper ownership
+COPY --chown=appuser:appgroup . .
+
+# Set secure file permissions
+RUN chmod -R 755 /app && \
+    find /app -type f -name "*.py" -exec chmod 644 {} \; && \
+    find /app -type d -exec chmod 755 {} \;
+
+# Remove potentially sensitive files
+RUN find /app -name "*.pyc" -delete && \
+    find /app -name "__pycache__" -type d -exec rm -rf {} + && \
+    find /app -name ".git*" -delete && \
+    rm -rf /app/tests /app/docs /app/.pytest_cache
+
+# Create logs directory with proper permissions
+RUN mkdir -p /app/logs && \
+    chown -R appuser:appgroup /app/logs && \
+    chmod 750 /app/logs
+
+# Security: Clean up package cache and temporary files
+RUN rm -rf /var/cache/apt/* /tmp/* /var/tmp/* && \
+    apt-get autoremove -y && \
+    apt-get autoclean
+
+# Security environment variables
+ENV PYTHONPATH=/app \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PYTHONHASHSEED=random \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    ENVIRONMENT=production \
+    DEBUG=false
+
+# Security: Switch to non-root user
+USER appuser
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
+    CMD curl -f http://localhost:8000/health || exit 1
+
+# Expose port (non-privileged)
+EXPOSE 8000
+
+# Use dumb-init as PID 1 for proper signal handling
+ENTRYPOINT ["dumb-init", "--"]
+
+# Run with security-hardened Uvicorn
+CMD ["uvicorn", \
+     "app.main:app", \
+     "--host", "0.0.0.0", \
+     "--port", "8000", \
+     "--workers", "4", \
+     "--log-level", "info"]
